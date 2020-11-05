@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Montserrat";
+    
+}
+main {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+}
+h1{
+    font-size: 40pt;
+    font-weight: 800;
+}
+
+.container{
+    font-weight: 100;
+}
+.contact a{
+    margin: 20px;
+}
+.contact :hover{
+    background-color: #a4b494 !important;
+}
+.img-klasemen{
+    float: none !important;
+    width:20px;
+    height:20px;
+    margin-right: 10px;
+}
+table tr:hover{
+    background-color: #a4b494
+}
+table td{
+    min-width: 30px;
+}
+.brand-logo{
+    font-size: 16pt !important;
+    font-weight: 800 !important;
+}
+.d-team{
+    font-weight: 800;
+}
+a{
+    color: green;
+}
+#save{
+    font-size: 24px;
+    margin: 10px;
+}

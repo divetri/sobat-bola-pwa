@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Sobat Bola</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <meta name="theme-color" content="#33691E" />
+    <meta name="description" content="Sobat Bola" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body>
+
+    <!-- Navigasi -->
+    <nav class="light-green darken-4" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="/" class="brand-logo a-site-title center" id="logo-container">Sobat Bola</a>
+            <a href="javascrit:void(0)" onclick="javascript:window.history.back(-1);return false;"
+                data-target="nav-mobile">🡄
+            </a>
+        </div>
+    </nav>
+    <!-- Akhir Navigasi -->
+    <div class="container center-align">
+        <div class="row">
+            <h1>Match Detail</h1>
+            <div class="card">
+                <div class="card-content">
+                    <div id=detail-match-content>
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                        <h5>Loading...</h5>
+                    </div>
+                    <div class="row center">
+                        <div id="addToFavorit">
+                            <a class="btn green">
+                                <p id="iconFav">Save</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/view.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/idb.js"></script>
+    <script src="js/sw-regis.js"></script>
+    <script>
+        // REGISTER SERVICE WORKER
+        document.addEventListener("DOMContentLoaded", function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var id = Number(urlParams.get("id"));
+            var isFavorit = false
+            checkData("match_favorit", id).then((msg) => {
+                console.log("statusData: resolve = " + msg)
+                document.getElementById("iconFav").innerHTML = "Saved"
+                getSavedDataById("match")
+                isFavorit = true
+            }).catch((msg) => {
+                console.log("statusData: reject = " + msg)
+                document.getElementById("iconFav").innerHTML = "Save"
+                getDetailMatchById()
+                isFavorit = false
+            })
+
+            var iconFav = document.getElementById("iconFav");
+
+            iconFav.onclick = function () {
+                console.log("Tombol save diklik");
+                if (isFavorit) {
+                    deleteDatafav("match_favorit", id);
+                    isFavorit = false
+                } else {
+                    items = getDetailMatchById();
+                    items.then(function (match) {
+                        createDataFav("match", match);
+                    });
+                    isFavorit = true
+                }
+            };
+        });
+    </script>
+</body>
+
+</html>
